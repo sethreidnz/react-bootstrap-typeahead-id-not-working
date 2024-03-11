@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+# react-bootstrap-typeahead-id-not-working
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a reproduction of a suspected issue where the `id` property on the `react-bootstrap-typeahead` components are not being applied correctly. I have created some unit tests to show this in the file:
 
-Currently, two official plugins are available:
+src/App.test.tsx
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can run these by cloning the repo and then running:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+yarn install
+yarn test
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+This should give you 1 successful test, and two failed tests:
+
+- ✓ should be able to access the input component by label
+- × should be able to access the Typeahead component by label
+- × should be able to access the AsyncTypeahead component by label
+
+As you can see the regular input using `htmlFor` and `id` to have an accessible label works. But the react-bootstrap-typeahead doesn't work.
